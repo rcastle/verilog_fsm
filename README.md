@@ -26,9 +26,9 @@ Usage
         state(:solid, :enter => :on_enter_solid, :exit => :on_exit_solid)
         
         # define all valid transitions (arguments are name of transition, from state name, to state name)
-        # you can define callbacks which are called only on this transition as well as guards 
-        # guards prevent transition when they return nil/false
-        transition(:heat_up, :solid, :liquid, :event => :on_heat, :guard => :guard_something)
+        # you can define callbacks which are called only on this transition as well as conditions 
+        # conditions prevent transition when they return nil/false
+        transition(:heat_up, :solid, :liquid, :event => :on_heat, :condition => :condition_something)
         transition(:heat_up, :liquid, :gas, :event => :on_heat)     # look mam.... two transitions with same name
         transition(:cool_down, [:gas, :liquid], :liquid, :event => :on_cool)
         
@@ -44,7 +44,7 @@ Usage
       def ...
       
       # 
-      def guard_something()
+      def condition_something()
         
       end
     end
@@ -60,11 +60,11 @@ Usage
     w.state_solid?
     
     
-Guards
+conditions
 ==
 
-Guards are methods or Procs which can prevent a transition. 
-To do so they just need to return false/nil. If no guard is specified
+conditions are methods or Procs which can prevent a transition. 
+To do so they just need to return false/nil. If no condition is specified
 then the transition is always executed.
 
 ## Callbacks and arguments
@@ -74,24 +74,24 @@ passed any arguments, if it's a Proc, then a single argument
 
 Short: :enter/:exit methods must take 0 arguments, :enter/:exit Procs must take one argument.
 
-If :event and :guard callbacks are methods then they are passed 
+If :event and :condition callbacks are methods then they are passed 
 all the arguments that were passed to the transition method. With 
-Procs for :event and :guard the caller as well as all the arguments 
+Procs for :event and :condition the caller as well as all the arguments 
 passed to the transition methods are passed.
 
    
-Order of callbacks/guards calls
+Order of callbacks/conditions calls
 ==
 
-The callbacks/guards are called in following order if the guard returns __true__:
+The callbacks/conditions are called in following order if the condition returns __true__:
   * :exit (state)
-  * :guard (transition)
+  * :condition (transition)
   * :event (transition)
   * :enter (state) 
   
-The callbacks/guards are called in following order if the guard returns __false__:
+The callbacks/conditions are called in following order if the condition returns __false__:
   * :exit (state)
-  * :guard (transition)
+  * :condition (transition)
 
 
 Graphviz / Dot format
