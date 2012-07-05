@@ -19,7 +19,12 @@ module VerilogFSM
         if (args.length > 0)
           target.send(@thing, *args)
         else
-          target.send(@thing)
+          result = target.send(@thing)
+          # This allows conditions to be set as strings for code generation.
+          # This takes the string and
+          if (result.class == String)
+             target.evaluate_string(result)
+          end
         end
       when Proc
         if (args.length > 0)

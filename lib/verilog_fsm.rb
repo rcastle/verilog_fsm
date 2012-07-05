@@ -63,6 +63,12 @@ module VerilogFSM
     def machine
       Machine[self.class]
     end
+  
+    ## TODO Find better way to add this feature
+    ## Allows condition to be stored as string for template, and executed as ruby code.
+    def evaluate_string(command)
+      eval(command)
+    end
 
   end
   
