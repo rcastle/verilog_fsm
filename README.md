@@ -101,13 +101,13 @@ FSM supports the dot format of graphviz (http://www.graphviz.org/).
 If you have the graphviz tools installed (the dot executable must be on the path) then
 you can export a graph to png like this
     # Export to water.png in the current dir
-    Water.draw_graph    
+    w.machine.draw_graph    
     # Export in another format. (see graphviz documentation for supported file formats)
-    Water.draw_graph(:format => :foo)
+    w.machine.draw_graph(:format => :foo)
     # Change the extension (defaults to the format)
-    Water.draw_graph(:format => :jpg, :extension => :jpeg)
+    w.machine.draw_graph(:format => :jpg, :extension => :jpeg)
     # Specify a custom file
-    Water.draw_graph(:outfile => '/afile.png')
+    w.machine.draw_graph(:outfile => './afile.png')
   
 Licence
 ==
