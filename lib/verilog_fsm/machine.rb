@@ -4,8 +4,8 @@ module VerilogFSM
     attr_accessor(:initial_state_name, :current_state_attribute_name, :states, :transitions)
     
     def initialize(target_class)
-      @target_class = target_class
-      self.states = []
+      @target_class    = target_class
+      self.states      = []
       self.transitions = []
       self.current_state_attribute_name = :state
     end
@@ -33,7 +33,7 @@ module VerilogFSM
       raise ArgumentError.new("name, from_name and to_name are required") if name.nil? || from_name.nil? || to_name.nil?
       
       from_state = self.state_for_name(from_name)
-      to_state = self.state_for_name(to_name)
+      to_state   = self.state_for_name(to_name)
       transition = Transition.new(name, from_state, to_state, options)
       from_state.add_transition(transition)
       self.transitions << transition
@@ -104,11 +104,11 @@ module VerilogFSM
     def define_transition_method(name)
       @target_class.instance_eval do
         define_method(name) do |*args|
-          machine = Machine[self.class]
-          from_name = Machine.get_current_state_name(self)
+          machine    = Machine[self.class]
+          from_name  = Machine.get_current_state_name(self)
           from_state = machine.state_for_name(from_name)
           
-          entry = from_state.transitions.detect() {|to_name, tr| tr.name == name}
+          entry      = from_state.transitions.detect() {|to_name, tr| tr.name == name}
           transition = entry.last if entry
           raise InvalidStateTransition.new("No transition with name '#{name}' defined from '#{from_name}'") unless transition
           to_state = transition.to

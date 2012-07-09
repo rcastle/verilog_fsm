@@ -23,10 +23,10 @@ module VerilogFSM
 
       # 
       def draw_graph(options = {})
-        format = options[:format] || :png
+        format    = options[:format]    || :png
         extension = options[:extension] || format
-        file_name = options[:outfile] || "#{@target_class.name.downcase}.#{extension}" 
-        cmd = "dot -T#{format} -o#{file_name}"
+        file_name = options[:outfile]   || "#{@target_class.name.downcase}.#{extension}" 
+        cmd       = "dot -T #{format} -o #{file_name}"
         IO.popen cmd, 'w' do |io| 
           io.write to_dot
         end 
