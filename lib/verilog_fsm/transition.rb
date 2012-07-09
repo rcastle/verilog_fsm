@@ -31,7 +31,7 @@ module VerilogFSM
     end  
     
     def to_dot(options = {})
-      "#{self.from.name} -> #{self.to.name} [label=\"#{self.name}\"]"
+      "#{self.from.name} -> #{self.to.name} [label=\"#{self.condition.to_s}\"]"
     end  
   end
 end
